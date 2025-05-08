@@ -11,14 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // database/migrations/2014_10_12_000000_create_users_table.php
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('username')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('avatar')->nullable();
+            $table->text('bio')->nullable();
+            $table->string('website')->nullable();
+            $table->date('birthdate')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

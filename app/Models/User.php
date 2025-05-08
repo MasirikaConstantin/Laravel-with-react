@@ -17,12 +17,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
-
+ 
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -45,4 +40,54 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+   
+
+    protected $fillable = [
+        'name', 'username', 'email', 'password', 'avatar', 'bio', 'website', 'birthdate'
+    ];
+
+    
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'birthdate' => 'date',
+    ];
+
+    public function posts() {
+        return $this->hasMany(Post::class);
+    }
+
+    public function comments() {
+        return $this->hasMany(Commentaire::class);
+    }
+
+    public function likes() {
+        return $this->hasMany(Like::class);
+    }
+
+    public function followers() {
+        return $this->belongsToMany(User::class, 'followers', 'following_id', 'follower_id');
+    }
+
+    public function following() {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'following_id');
+    }
+
+    public function bookmarks() {
+        return $this->belongsToMany(Post::class, 'bookmarks');
+    }
+    /*protected $appends = ['avatar'];
+
+    public function getAvatarAttribute()
+{
+    if ($this->attributes['avatar']) {
+        return config('app.url') . '/storage/' . $this->attributes['avatar'];
+    }
+    return null;
+}   */
+// Pour la route binding avec le username
+public function getRouteKeyName()
+{
+    return 'username';
+}
 }
