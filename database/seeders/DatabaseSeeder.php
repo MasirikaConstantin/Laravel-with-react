@@ -15,12 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        //User::factory(50)->create();
-        //Post::factory(550)->create();
-        //CommentaireFactory::factory(550)->create();
+        User::factory(50)->create();
+        Post::factory(550)->create();
+        CommentaireFactory::factory(550)->create();
         $this->call([
-          //  TagSeeder::class,
-            CommentaireSeeder::class, // Ajouté ici
+           //TagSeeder::class,
+           // CommentaireSeeder::class, // Ajouté ici
             // D'autres seeders...
         //UpdatePostImagesSeeder::class,
         ]);
